@@ -37,15 +37,7 @@ class MPNN(nn.Module):
         self.lin0 = nn.Linear(node_in_feats, node_hidden_dim)#65,32
         self.num_step_message_passing=num_step_message_passing#层数 开始测试1层即可
         edge_network = nn.Sequential(
-            # edge的处理网络 一般是MLP，输入自然是edge_input_dim，
-            # 最后的输出必须是图卷积层的节点输入特征x节点隐藏特征
-            # 原文注释 注意in_feats和out_feats就是NNConv(in_feats=node_in_feats,out_feats=node_hidden_dim,...)
-            # edge_func : callable activation function/layer
-            # Maps each edge feature to a vector of shape
-            # ``(in_feats * out_feats)`` as weight to compute messages.
-            #我们这里在原始的节点输入dim基础上，通过一层线性层将其转换为指定的维度作为图卷积层的输入node_hidden_dim
-            #参考qm9_nn 多层，edgefunc也是一样的 我的想法还没搞清楚；minist则是不一样的；mpnndgl也是一样的
-
+            
             nn.Linear(edge_input_dim, edge_hidden_dim),
             nn.ReLU(),
             nn.Dropout(p=edge_dp),
@@ -64,7 +56,6 @@ class MPNN(nn.Module):
         self.bn = nn.BatchNorm1d(node_hidden_dim)
         # self.y1_predict = nn.Linear(linear_size, 1)
 
-        # # 分别用一层mlp算一下即可
         # self.y2_linear = nn.Linear(node_hidden_dim, linear_size)
         # self.y2_predict = nn.Linear(linear_size, 1)
 
