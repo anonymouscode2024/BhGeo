@@ -447,7 +447,7 @@ if __name__ == '__main__':
         #         print(perf_str)
         #-----------------------
 
-        optimizer.zero_grad()  # 固定3步 复制即可
+        optimizer.zero_grad()  # 
         total_loss.backward()
         optimizer.step()
 
@@ -459,7 +459,7 @@ if __name__ == '__main__':
                 net.cpu()
 
             if 1:#:(epoch%10==1):  #
-                y1_val_loss = loss_fn(y1_predict[val_labeled_nodes], new_lat_val_labels.squeeze(-1))  # 计算loss
+                y1_val_loss = loss_fn(y1_predict[val_labeled_nodes], new_lat_val_labels.squeeze(-1))  # 
                 y2_val_loss = loss_fn(y2_predict[val_labeled_nodes], new_lon_val_labels.squeeze(-1))
                 y3_val_loss = loss_fn(y3_predict[val_labeled_nodes], delay_val_labels.squeeze(-1))
                 y4_val_loss = loss_fn(y4_predict[val_labeled_nodes], hop_val_labels.squeeze(-1))
@@ -484,7 +484,6 @@ if __name__ == '__main__':
                     temp_hop_pre= temp_y4_predict[i]
                     sum_delay_error += abs(temp_delay_pre - temp_delay_label)
                     sum_hop_error += abs(temp_hop_pre - temp_hop_label)
-                    ##这是确定了最佳参数之后 才需要输出的每个ip的错误程度
                     # if epoch%1000==1 or epoch == 17768:  # (epoch%10==1):
                     #
                     #     fw3.write('epoch=%i!!!!!\n'%epoch)
@@ -509,7 +508,7 @@ if __name__ == '__main__':
                 fw1.flush()
                 cur_best_pre_0, stopping_step, should_stop = early_stopping(error_thisepoch, cur_best_pre_0,
                                                                             stopping_step, expected_order='dec',
-                                                                            flag_step=500)#注意flag_step 50x打印epoch的间隔
+                                                                            flag_step=500)#
 
 
                 y3_predict_copy = y3_predict.clone()
@@ -545,7 +544,7 @@ if __name__ == '__main__':
 
             # if epoch == args.epochs -1 :  # ():
             #
-            #     y1_test_loss = loss_fn(y1_predict[test_labeled_nodes], lat_test_labels)  # 计算loss
+            #     y1_test_loss = loss_fn(y1_predict[test_labeled_nodes], lat_test_labels)  #
             #     y2_test_loss = loss_fn(y2_predict[test_labeled_nodes], lon_test_labels)
             #     total_test_loss = loss1_weight * y1_test_loss + y2_test_loss
             #
@@ -573,7 +572,6 @@ if __name__ == '__main__':
             #     fw3.flush()
             #     print(dis_list)
 
-                # # 输出指定epoch的val具体内容和test具体内容
                 # val1 = old_y1_predict[val_labeled_nodes_cpu]
                 # val2 = old_y2_predict[val_labeled_nodes_cpu]
                 # test1 = old_y1_predict[test_labeled_nodes_cpu]
