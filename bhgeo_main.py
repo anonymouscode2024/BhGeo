@@ -525,14 +525,17 @@ if __name__ == '__main__':
 
 
                 index_list = [[0]] * G.number_of_nodes() #node number
+                index_list1 = [[1]] * G.number_of_nodes()  # node number
+
                 y3_predict_copy = y3_predict_copy.view( G.number_of_nodes(), 1)
                 y4_predict_copy = y4_predict_copy.view( G.number_of_nodes(), 1)
                 index = torch.LongTensor(index_list)
                 index = index.cuda()
+                index1 = torch.LongTensor(index_list1)
+                index1 = index1.cuda()
 
-                node_feat = node_feat.scatter_(1, index, y3_predict_copy)  # , [2, 0, 0, 1, 2]
-                # node_feat =  node_feat.scatter_(2, index, y4_predict_copy)
-                # ---------------
+                node_feat = node_feat.scatter_(1, index, y3_predict_copy)  # lantecy
+                node_feat =  node_feat.scatter_(1, index1, y4_predict_copy)# hop
 
 
                 if use_cuda:
